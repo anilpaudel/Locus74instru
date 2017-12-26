@@ -1,0 +1,51 @@
+#include <LiquidCrystal.h>
+#include<Servo.h>
+Servo myservo;
+
+int pos=0;
+// initialize the library with the numbers of the interface pins
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+const int Prox1=1;
+const int Prox2=8;
+void setup() {
+  
+    pinMode(Prox2,INPUT);
+    pinMode(Prox1,INPUT);
+    // set up the LCD's number of columns and rows:
+    lcd.begin(16, 2);
+    // Print a message to the LCD.
+    lcd.print("hello, world!");
+    myservo.attach(A1);
+    myservo.write(10);
+}
+
+void loop() {
+  
+  if(digitalRead(Prox2)==LOW)
+      {
+        if(digitalRead(Prox1)==HIGH)
+          {
+           lcd.setCursor(0, 0);
+           lcd.print("Prem Pandey");
+           lcd.setCursor(0,1);
+           lcd.print("Deepak kandel");
+    
+           myservo.write(100);
+           delay(1500);
+
+          }
+        else
+          {
+          lcd.clear();
+          myservo.write(10);
+          delay(1500);
+          }
+    }
+  else
+    {
+      digitalWrite(13,HIGH);
+      lcd.clear();
+      lcd.setCursor(0,0);
+      lcd.print("Park is FUll");
+    }
+}
